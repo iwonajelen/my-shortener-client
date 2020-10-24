@@ -6,7 +6,7 @@ export const shortenUrl = createAsyncThunk('shortener/shortenUrl', async url => 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: url })
     };
-    const response = await fetch('http://localhost:5000/shorten', requestOptions)
+    const response = await fetch(process.env.REACT_APP_API_URL + 'shorten', requestOptions)
         .then(response => response.json());
 
     return response.data;
@@ -26,6 +26,6 @@ export const shortenerSlice = createSlice({
   }
 });
 
-export const selectUrl = state => state.shortener.url ? 'http://localhost:5000/' + state.shortener.url : '';
+export const selectUrl = state => state.shortener.url ? process.env.REACT_APP_API_URL + state.shortener.url : '';
 
 export default shortenerSlice.reducer;
